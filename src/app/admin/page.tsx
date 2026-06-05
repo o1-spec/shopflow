@@ -6,15 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { 
-  Activity, 
-  Cpu, 
-  AlertTriangle, 
-  Play, 
-  RefreshCw, 
-  CheckCircle, 
-  XCircle, 
-  Clock, 
+import {
+  Activity,
+  Cpu,
+  AlertTriangle,
+  Play,
+  RefreshCw,
+  CheckCircle,
+  XCircle,
+  Clock,
   ArrowRight,
   Server,
   Zap,
@@ -195,8 +195,8 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-50 antialiased font-sans">
       {/* Premium Gradient Top Border */}
-      <div className="h-1.5 w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500" />
-      
+      <div className="h-1.5 w-full bg-linear-to-r from-indigo-500 via-purple-500 to-rose-500" />
+
       <header className="border-b border-neutral-800 bg-neutral-900/40 backdrop-blur-md sticky top-0 z-50">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -213,15 +213,15 @@ export default function AdminPage() {
               <p className="text-xs text-neutral-400">Believable corporate environment feeding QueueWatch dashboard</p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
             <Button asChild size="sm" variant="outline" className="border-neutral-800 text-neutral-300 hover:bg-neutral-800">
               <Link href="/">Storefront</Link>
             </Button>
-            <Button 
-              onClick={triggerManualRefresh} 
-              size="sm" 
-              variant="outline" 
+            <Button
+              onClick={triggerManualRefresh}
+              size="sm"
+              variant="outline"
               className="border-neutral-800 text-neutral-300 hover:bg-neutral-800 gap-2"
               disabled={refreshing}
             >
@@ -233,13 +233,13 @@ export default function AdminPage() {
       </header>
 
       <div className="mx-auto max-w-7xl px-6 py-8 grid gap-8">
-        
+
         {/* Top Grid: Control Panel & Worker Monitor */}
         <div className="grid gap-8 lg:grid-cols-12">
-          
+
           {/* Load Injector & Outage Control Panel (7 cols) */}
           <div className="lg:col-span-7 space-y-8">
-            
+
             {/* Load Injector Card */}
             <Card className="border-neutral-800 bg-neutral-900/60 shadow-xl overflow-hidden relative">
               <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
@@ -257,17 +257,17 @@ export default function AdminPage() {
                 </p>
                 <div className="flex gap-3">
                   <div className="w-32">
-                    <Input 
-                      type="number" 
-                      min="1" 
+                    <Input
+                      type="number"
+                      min="1"
                       max="20"
-                      value={orderCount} 
+                      value={orderCount}
                       onChange={(e) => setOrderCount(parseInt(e.target.value) || 1)}
-                      className="bg-neutral-950 border-neutral-800 text-white placeholder-neutral-600 focus-visible:ring-indigo-500 focus-visible:border-indigo-500" 
+                      className="bg-neutral-950 border-neutral-800 text-white placeholder-neutral-600 focus-visible:ring-indigo-500 focus-visible:border-indigo-500"
                     />
                   </div>
-                  <Button 
-                    onClick={handleGenerateOrders} 
+                  <Button
+                    onClick={handleGenerateOrders}
                     disabled={loading}
                     className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/10 active:scale-95 transition-transform"
                   >
@@ -275,11 +275,10 @@ export default function AdminPage() {
                   </Button>
                 </div>
                 {message && (
-                  <div className={`mt-3 p-3 rounded-lg text-xs font-mono border ${
-                    message.startsWith("Success") 
-                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" 
+                  <div className={`mt-3 p-3 rounded-lg text-xs font-mono border ${message.startsWith("Success")
+                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
                       : "bg-rose-500/10 text-rose-400 border-rose-500/20"
-                  }`}>
+                    }`}>
                     {message}
                   </div>
                 )}
@@ -316,10 +315,10 @@ export default function AdminPage() {
                         {/* Probability setting */}
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-neutral-400 font-mono">Fail rate:</span>
-                          <input 
-                            type="range" 
-                            min="0" 
-                            max="1" 
+                          <input
+                            type="range"
+                            min="0"
+                            max="1"
                             step="0.05"
                             value={rule.probability}
                             onChange={(e) => handleProbabilityChange(rule.key, parseFloat(e.target.value))}
@@ -333,14 +332,12 @@ export default function AdminPage() {
                         {/* Switch Trigger */}
                         <button
                           onClick={() => handleToggleRule(rule.key, !rule.enabled)}
-                          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                            rule.enabled ? "bg-indigo-600" : "bg-neutral-800"
-                          }`}
+                          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${rule.enabled ? "bg-indigo-600" : "bg-neutral-800"
+                            }`}
                         >
                           <span
-                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                              rule.enabled ? "translate-x-5" : "translate-x-0"
-                            }`}
+                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${rule.enabled ? "translate-x-5" : "translate-x-0"
+                              }`}
                           />
                         </button>
                       </div>
@@ -374,8 +371,8 @@ export default function AdminPage() {
                   </div>
                 ) : (
                   workers.map((worker) => (
-                    <div 
-                      key={worker.workerName} 
+                    <div
+                      key={worker.workerName}
                       className="p-4 rounded-xl border border-neutral-800/80 bg-neutral-950/40 hover:border-neutral-700/60 transition-all flex flex-col gap-3"
                     >
                       <div className="flex items-center justify-between">
@@ -385,7 +382,7 @@ export default function AdminPage() {
                         </div>
                         {getWorkerStatusBadge(worker.status)}
                       </div>
-                      
+
                       <div className="grid grid-cols-3 gap-2 bg-neutral-950/70 p-2.5 rounded-lg text-center border border-neutral-900">
                         <div>
                           <p className="text-[10px] text-neutral-500 uppercase font-semibold">Active</p>
@@ -469,7 +466,7 @@ export default function AdminPage() {
                         <TableCell className="text-center text-neutral-300">{event.attemptsMade}</TableCell>
                         <TableCell>
                           {event.orderId ? (
-                            <Link 
+                            <Link
                               href={`/orders/${event.orderId}`}
                               className="text-indigo-400 hover:text-indigo-300 underline underline-offset-4 flex items-center gap-1 group"
                             >

@@ -5,14 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { 
-  CheckCircle2, 
-  AlertCircle, 
-  ArrowLeft, 
-  Mail, 
-  FileText, 
-  Coins, 
-  Package, 
+import {
+  CheckCircle2,
+  AlertCircle,
+  ArrowLeft,
+  Mail,
+  FileText,
+  Coins,
+  Package,
   RefreshCw,
   Clock,
   Layers,
@@ -72,15 +72,15 @@ export default function OrderPage() {
       const data = await response.json();
       if (data.success) {
         setOrder(data.order);
-        
+
         // Stop polling if order has reached final states
         const currentStatus = data.order.status;
-        const subStatusesFinished = 
+        const subStatusesFinished =
           (data.order.paymentStatus === "paid" || data.order.paymentStatus === "failed") &&
           (data.order.invoiceStatus === "generated" || data.order.invoiceStatus === "failed") &&
           (data.order.emailStatus === "sent" || data.order.emailStatus === "failed") &&
           (data.order.shipmentStatus === "shipped" || data.order.shipmentStatus === "failed");
-        
+
         if (currentStatus === "shipped" || currentStatus === "failed" || subStatusesFinished) {
           setPolling(false);
         }
@@ -195,11 +195,11 @@ export default function OrderPage() {
       </header>
 
       <div className="mx-auto max-w-5xl px-6 py-10 grid gap-8 md:grid-cols-12">
-        
+
         {/* Left: Pipeline Status Board (7 cols) */}
         <div className="md:col-span-7 space-y-6">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">BullMQ Processing Pipeline</h2>
-          
+
           <div className="space-y-4">
             {/* Step 1: Payment */}
             <div className={`p-4 rounded-xl border flex items-center gap-4 bg-white transition-all ${getPipelineStatusColor(order.paymentStatus)}`}>
@@ -230,19 +230,18 @@ export default function OrderPage() {
             </div>
 
             {/* Step 3: Inventory Alloc */}
-            <div className={`p-4 rounded-xl border flex items-center gap-4 bg-white transition-all ${
-              order.status === "pending_payment" || order.status === "payment_processing" || order.status === "failed"
-                ? getPipelineStatusColor("pending") 
-                : order.status === "inventory_syncing" 
-                  ? getPipelineStatusColor("processing") 
+            <div className={`p-4 rounded-xl border flex items-center gap-4 bg-white transition-all ${order.status === "pending_payment" || order.status === "payment_processing" || order.status === "failed"
+                ? getPipelineStatusColor("pending")
+                : order.status === "inventory_syncing"
+                  ? getPipelineStatusColor("processing")
                   : getPipelineStatusColor("paid")
-            }`}>
+              }`}>
               <div className="p-2.5 rounded-lg border bg-white shadow-sm shrink-0">
                 {getPipelineStatusIcon(
                   order.status === "pending_payment" || order.status === "payment_processing" || order.status === "failed"
-                    ? "pending" 
-                    : order.status === "inventory_syncing" 
-                      ? "processing" 
+                    ? "pending"
+                    : order.status === "inventory_syncing"
+                      ? "processing"
                       : "paid",
                   <Package className="h-5 w-5 text-neutral-400" />
                 )}
@@ -296,7 +295,7 @@ export default function OrderPage() {
         {/* Right: Order Summary & Customer (5 cols) */}
         <div className="md:col-span-5 space-y-6">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">Order details</h2>
-          
+
           <Card className="border-neutral-200/80 bg-white shadow-sm">
             <CardHeader className="pb-3 border-b border-neutral-100">
               <CardTitle className="text-sm font-semibold text-neutral-800">Customer Profile</CardTitle>
@@ -364,10 +363,10 @@ export default function OrderPage() {
             order.timeline.map((event, index) => (
               <div key={index} className="relative">
                 {/* Visual Circle Marker */}
-                <span className="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-neutral-300 bg-white shadow-sm ring-4 ring-neutral-50">
+                <span className="absolute left-[-31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-neutral-300 bg-white shadow-sm ring-4 ring-neutral-50">
                   <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
                 </span>
-                
+
                 <div>
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
@@ -376,7 +375,7 @@ export default function OrderPage() {
                       </span>
                       <p className="text-sm font-medium text-neutral-900">{event.message}</p>
                     </div>
-                    
+
                     <span className="text-xs text-neutral-450 font-mono">
                       {new Date(event.timestamp).toLocaleString()}
                     </span>
