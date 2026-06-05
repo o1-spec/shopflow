@@ -46,7 +46,7 @@ export function monitorQueue(queue: QueueLike, options: MonitorOptions) {
     }, 15000).unref?.();
 
     // Hook onto QueueEvents
-    const connectionOpts = options.connection || queue.opts.connection;
+    const connectionOpts = options.connection || queue.opts?.connection;
     const queueEvents = new QueueEvents(queue.name, { connection: connectionOpts });
 
     queueEvents.on('active', ({ jobId, prev }) => {
