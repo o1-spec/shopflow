@@ -13,8 +13,8 @@ const JobEventSchema = new Schema(
       index: true,
     },
     orderId: {
-      type: Schema.Types.ObjectId,
-      ref: "Order",
+      type: String,
+      required: false,
       index: true,
     },
     event: {

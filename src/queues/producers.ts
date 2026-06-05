@@ -3,6 +3,7 @@ import { redisConnectionOptions } from "@/lib/redis";
 import { QUEUE_NAMES } from "@/queues/names";
 import { defaultJobOptions } from "@/queues/options";
 import { recordJobEvent } from "@/services/job-events.service";
+import { monitorQueue } from "@queuewatch/node";
 
 export const paymentProcessingQueue = new Queue(QUEUE_NAMES.paymentProcessing, {
   connection: redisConnectionOptions,
@@ -31,6 +32,43 @@ export const shipmentUpdatesQueue = new Queue(QUEUE_NAMES.shipmentUpdates, {
   connection: redisConnectionOptions,
   defaultJobOptions,
 });
+
+// QueueWatch SDK Integration
+const qwApiKey = process.env.QUEUEWATCH_API_KEY;
+const qwProjectId = process.env.QUEUEWATCH_PROJECT_ID || (qwApiKey === 'qw_demo_api_key_v2' ? 'proj_demo' : undefined);
+const qwEndpoint = process.env.QUEUEWATCH_ENDPOINT || "http://localhost:3001";
+
+if (qwApiKey && qwProjectId) {
+  const monitorOptions = {
+    apiKey: qwApiKey,
+    projectId: qwProjectId,
+    endpoint: qwEndpoint,
+    connection: redisConnectionOptions,
+  };
+
+  monitorQueue(paymentProcessingQueue, {
+    ...monitorOptions,
+    queueName: QUEUE_NAMES.paymentProcessing,
+  });
+  monitorQueue(inventorySyncQueue, {
+    ...monitorOptions,
+    queueName: QUEUE_NAMES.inventorySync,
+  });
+  monitorQueue(invoiceGenerationQueue, {
+    ...monitorOptions,
+    queueName: QUEUE_NAMES.invoiceGeneration,
+  });
+  monitorQueue(emailNotificationsQueue, {
+    ...monitorOptions,
+    queueName: QUEUE_NAMES.emailNotifications,
+  });
+  monitorQueue(shipmentUpdatesQueue, {
+    ...monitorOptions,
+    queueName: QUEUE_NAMES.shipmentUpdates,
+  });
+
+  console.log("📡 QueueWatch SDK monitoring initialized for ShopFlow queues");
+}
 
 export async function addPaymentProcessingJob(orderId: string) {
   const job = await paymentProcessingQueue.add("process-payment", {
