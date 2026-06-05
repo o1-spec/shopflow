@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@queuewatch/node':
-        specifier: file:../../queuewatch/packages/node-sdk
-        version: file:../../queuewatch/packages/node-sdk(bullmq@5.78.0)
+        specifier: file:./libs/node-sdk
+        version: file:libs/node-sdk(bullmq@5.78.0)
       bullmq:
         specifier: ^5.78.0
         version: 5.78.0
@@ -50,9 +50,15 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
+      tsx:
+        specifier: ^4.22.4
+        version: 4.22.4
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
+      typescript:
+        specifier: ^5
+        version: 5.9.3
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -84,12 +90,6 @@ importers:
       tailwindcss:
         specifier: ^4
         version: 4.3.0
-      tsx:
-        specifier: ^4.22.4
-        version: 4.22.4
-      typescript:
-        specifier: ^5
-        version: 5.9.3
 
 packages:
 
@@ -821,8 +821,8 @@ packages:
   '@open-draft/until@2.1.0':
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
 
-  '@queuewatch/node@file:../../queuewatch/packages/node-sdk':
-    resolution: {directory: ../../queuewatch/packages/node-sdk, type: directory}
+  '@queuewatch/node@file:libs/node-sdk':
+    resolution: {directory: libs/node-sdk, type: directory}
     peerDependencies:
       bullmq: ^5.4.1
 
@@ -4796,7 +4796,7 @@ snapshots:
 
   '@open-draft/until@2.1.0': {}
 
-  '@queuewatch/node@file:../../queuewatch/packages/node-sdk(bullmq@5.78.0)':
+  '@queuewatch/node@file:libs/node-sdk(bullmq@5.78.0)':
     dependencies:
       bullmq: 5.78.0
 
